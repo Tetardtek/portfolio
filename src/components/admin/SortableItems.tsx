@@ -5,8 +5,8 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import type { Project, Technology } from '@/types'
 
-export function SortableProjectItem({ project, idx, isSelected, onClick }: {
-  project: Project; idx: number; isSelected: boolean; onClick: () => void
+export function SortableProjectItem({ project, isSelected, onClick }: {
+  project: Project; idx?: number; isSelected: boolean; onClick: () => void
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: project.id })
   return (
@@ -88,7 +88,10 @@ export function SortableServiceItem({ service, idx, isSelected, onClick }: {
     <div ref={setNodeRef} style={{ transform: CSS.Transform.toString(transform), transition, opacity: isDragging ? 0.5 : 1 }} className="flex items-center gap-1 mb-1">
       <span {...attributes} {...listeners} className="px-1 py-2 cursor-grab active:cursor-grabbing text-[var(--border)] hover:text-[var(--text-muted)] touch-none">⠿</span>
       <button onClick={onClick} className={`flex-1 glass text-left px-3 py-2.5 flex items-center gap-3 transition-colors ${isSelected ? 'border-[var(--cyan)] text-[var(--cyan)]' : 'text-[var(--text-muted)] hover:text-[var(--text)]'}`}>
-        {service.img && <img src={service.img} alt="" className="w-4 h-4 object-contain shrink-0" />}
+        {service.img && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={service.img} alt="" className="w-4 h-4 object-contain shrink-0" />
+        )}
         <span className="font-mono text-sm truncate flex-1">{service.name || 'Sans nom'}</span>
         {service.url && <span className="text-xs text-[var(--border)]">↗</span>}
       </button>

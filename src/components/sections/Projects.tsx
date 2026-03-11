@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import type { Project, Technology, Lang } from '@/types'
-import { TechBadge, TechBadgeList } from '@/components/ui/TechBadge'
+import { TechBadgeList } from '@/components/ui/TechBadge'
 
 interface Props {
   projects: Project[]

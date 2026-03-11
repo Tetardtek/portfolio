@@ -6,8 +6,6 @@ import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-ki
 import type { Project, Technology } from '@/types'
 import { SortableTechItem, SortableCategoryItem } from '@/components/admin/SortableItems'
 
-type DescLang = 'fr' | 'en'
-
 const input = 'w-full bg-[var(--bg-base)] border border-[var(--border)] rounded-[var(--radius-sm)] px-3 py-2 text-[var(--text)] text-sm font-mono focus:outline-none focus:border-[var(--pink)] transition-colors'
 
 interface Props {

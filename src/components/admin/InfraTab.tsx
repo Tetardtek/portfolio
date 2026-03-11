@@ -84,7 +84,10 @@ export function InfraTab({ infra, stack, selectedServiceIdx, descLang, setInfra,
                         onClick={() => setInfra((prev) => ({ ...prev, specs: isOn ? prev.specs.filter((s) => s !== tech.name) : [...prev.specs, tech.name] }))}
                         className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono text-xs border transition-colors ${isOn ? 'border-[var(--cyan)] text-[var(--cyan)] bg-[var(--bg-high)]' : 'border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--purple)] hover:text-[var(--purple)]'}`}
                       >
-                        {tech.img && <img src={tech.img} alt="" className="w-3.5 h-3.5 object-contain" />}
+                        {tech.img && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={tech.img} alt="" className="w-3.5 h-3.5 object-contain" />
+                        )}
                         {tech.name}
                       </button>
                     )
