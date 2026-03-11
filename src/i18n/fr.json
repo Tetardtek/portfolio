@@ -42,7 +42,8 @@
     "send": "Envoyer",
     "sending": "Envoi en cours...",
     "success": "Message envoyé !",
-    "error": "Une erreur est survenue."
+    "error": "Une erreur est survenue.",
+    "ratelimit": "Trop de messages envoyés. Réessayez dans quelques minutes."
   },
   "footer": {
     "made_with": "Fait avec Next.js & Framer Motion",
