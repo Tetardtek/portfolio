@@ -20,6 +20,15 @@ interface Props {
 }
 
 function FeaturedCard({ project, t, lang, stack, large }: { project: Project; t: Props['t']; lang: Lang; stack: Technology[]; large?: boolean }) {
+  const [copied, setCopied] = useState(false)
+
+  function handleCopy(e: React.MouseEvent) {
+    e.preventDefault()
+    navigator.clipboard.writeText(project.link)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
   return (
     <motion.article
       className={`glass overflow-hidden group relative flex flex-col ${large ? 'row-span-2' : ''}`}
@@ -67,6 +76,26 @@ function FeaturedCard({ project, t, lang, stack, large }: { project: Project; t:
           >
             {t.code}
           </a>
+          <motion.button
+            onClick={handleCopy}
+            className="px-3 py-2 rounded-btn border border-border text-muted hover:border-cyan hover:text-cyan text-sm transition-colors shrink-0"
+            whileTap={{ scale: 0.9 }}
+            aria-label="Copier le lien"
+            title="Copier le lien"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={copied ? 'check' : 'copy'}
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.7 }}
+                transition={{ duration: 0.15 }}
+                className="block"
+              >
+                {copied ? '✓' : '⎘'}
+              </motion.span>
+            </AnimatePresence>
+          </motion.button>
         </div>
       </div>
     </motion.article>
@@ -150,6 +179,10 @@ const PAGE_SIZE = 6
 export function Projects({ projects, lang, stack, t }: Props) {
   const stackNames = new Set(stack.map((s) => s.name))
   const allTechnos = Array.from(new Set(projects.flatMap((p) => p.techno).filter((n) => stackNames.has(n)))).sort()
+  const techCounts = projects.reduce<Record<string, number>>(
+    (acc, p) => { p.techno.forEach((n) => { acc[n] = (acc[n] ?? 0) + 1 }); return acc },
+    {}
+  )
   const [filter, setFilter] = useState<string | null>(null)
   const [showAll, setShowAll] = useState(false)
 
@@ -190,6 +223,7 @@ export function Projects({ projects, lang, stack, t }: Props) {
                 <img src={tech.img} alt="" className="w-3.5 h-3.5 object-contain" />
               )}
               {name}
+              <span className="opacity-50 text-xs">({techCounts[name] ?? 0})</span>
             </button>
           )
         })}
