@@ -18,7 +18,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Utilisateur non-root pour la sécurité
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN addgroup -g 1001 appgroup && adduser -u 1001 -G appgroup -D appuser
 
 # Fichiers issus du build standalone
 COPY --from=builder --chown=appuser:appgroup /app/.next/standalone ./
