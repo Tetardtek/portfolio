@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env.local
+    ports:
+      - "127.0.0.1:3000:3000"
     volumes:
       # Persistance des données JSON modifiées via l'admin
       - ./src/data:/app/src/data
