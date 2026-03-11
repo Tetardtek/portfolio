@@ -9,6 +9,7 @@ export function ThemeToggle() {
 
   useEffect(() => {
     const stored = localStorage.getItem('theme') as Theme | null
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: SSR-safe hydration pattern
     if (stored === 'light' || stored === 'dark') setTheme(stored)
   }, [])
 
