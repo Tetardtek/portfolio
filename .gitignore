@@ -33,6 +33,12 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# CV (données personnelles, copier manuellement sur le VPS)
+public/assets/cv/*.pdf
+
+# données de production (modifiées via l'admin, persistées via volume Docker)
+src/data/*.json
+
 # vercel
 .vercel
 

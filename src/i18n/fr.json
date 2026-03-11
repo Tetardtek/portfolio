@@ -46,6 +46,13 @@
   },
   "footer": {
     "made_with": "Fait avec Next.js & Framer Motion",
-    "rights": "Tous droits réservés"
+    "rights": "Tous droits réservés",
+    "download_cv": "Télécharger le CV",
+    "nav": {
+      "projects": "Projets",
+      "stack": "Stack",
+      "infra": "Infrastructure",
+      "contact": "Contact"
+    }
   }
 }
