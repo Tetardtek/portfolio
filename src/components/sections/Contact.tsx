@@ -14,10 +14,11 @@ interface Props {
     sending: string
     success: string
     error: string
+    ratelimit: string
   }
 }
 
-type Status = 'idle' | 'sending' | 'success' | 'error'
+type Status = 'idle' | 'sending' | 'success' | 'error' | 'ratelimited'
 
 export function Contact({ t }: Props) {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
@@ -32,7 +33,8 @@ export function Contact({ t }: Props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       })
-      setStatus(res.ok ? 'success' : 'error')
+      if (res.status === 429) setStatus('ratelimited')
+      else setStatus(res.ok ? 'success' : 'error')
     } catch {
       setStatus('error')
     }
@@ -104,7 +106,7 @@ export function Contact({ t }: Props) {
 
         <motion.button
           type="submit"
-          disabled={status === 'sending' || status === 'success'}
+          disabled={status === 'sending' || status === 'success' || status === 'ratelimited'}
           className="w-full py-3 rounded-[var(--radius-sm)] font-semibold text-[var(--bg-base)] disabled:opacity-60 transition-opacity"
           style={{ background: 'linear-gradient(135deg, var(--pink), var(--purple))' }}
           whileHover={{ scale: 1.02 }}
@@ -129,6 +131,15 @@ export function Contact({ t }: Props) {
             animate={{ opacity: 1 }}
           >
             {t.error}
+          </motion.p>
+        )}
+        {status === 'ratelimited' && (
+          <motion.p
+            className="text-center text-[var(--warning,#f59e0b)] font-mono text-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            {t.ratelimit}
           </motion.p>
         )}
       </motion.form>
