@@ -10,6 +10,8 @@ services:
     volumes:
       # Persistance des données JSON modifiées via l'admin
       - ./src/data:/app/src/data
+      # CV (non commité, copié manuellement sur le VPS)
+      - ./public/assets/cv:/app/public/assets/cv
     networks:
       - proxy
 
