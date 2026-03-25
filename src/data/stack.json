@@ -46,6 +46,16 @@
       "category": "frontend"
     },
     {
+      "name": "Svelte",
+      "img": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
+      "category": "frontend"
+    },
+    {
+      "name": "SvelteKit",
+      "img": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
+      "category": "frontend"
+    },
+    {
       "name": "SASS",
       "img": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg",
       "category": "frontend"
@@ -53,6 +63,11 @@
     {
       "name": "Node.js",
       "img": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      "category": "backend"
+    },
+    {
+      "name": "NestJS",
+      "img": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg",
       "category": "backend"
     },
     {
@@ -78,6 +93,16 @@
     {
       "name": "Redis",
       "img": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+      "category": "DB"
+    },
+    {
+      "name": "SQLite",
+      "img": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg",
+      "category": "DB"
+    },
+    {
+      "name": "Dolt",
+      "img": "https://www.dolthub.com/blog/static/dolt-logo-7c3c4be38c0c0e7c3e0c0c0e7c3c4be3.svg",
       "category": "DB"
     },
     {

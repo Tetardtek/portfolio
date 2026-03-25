@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Navbar } from '@/components/sections/Navbar'
 import { Hero } from '@/components/sections/Hero'
+import { Brain } from '@/components/sections/Brain'
 import { Projects } from '@/components/sections/Projects'
 import { Stack } from '@/components/sections/Stack'
 import { Infrastructure } from '@/components/sections/Infrastructure'
@@ -32,6 +33,7 @@ export default function HomeClient({ projects, stack, infra, techCounts }: Props
 
       <main>
         <Hero t={t.hero} />
+        <Brain t={t.brain} />
         <Projects projects={projects} lang={lang} stack={stack} t={t.projects} />
         <Stack stack={stack} techCounts={techCounts} t={t.stack} />
         <Infrastructure infra={infra} stack={stack} lang={lang} t={t.infra} />

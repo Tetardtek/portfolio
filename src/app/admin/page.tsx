@@ -1,33 +1,28 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
+import { Suspense } from 'react'
 
-export default function AdminLogin() {
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
+const PROVIDERS = [
+  { id: 'discord', label: 'Discord', color: '#5865F2' },
+  { id: 'github', label: 'GitHub', color: '#333' },
+  { id: 'google', label: 'Google', color: '#4285F4' },
+  { id: 'twitch', label: 'Twitch', color: '#9146FF' },
+]
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+const ERROR_MESSAGES: Record<string, string> = {
+  provider_denied: 'Connexion refusée par le provider.',
+  missing_params: 'Paramètres manquants — réessayez.',
+  expired_session: 'Session expirée — réessayez.',
+  invalid_state: 'Erreur de validation CSRF.',
+  token_exchange_failed: 'Échec de l\'échange de token.',
+  unauthorized: 'Accès réservé au propriétaire.',
+}
 
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
-    })
-
-    if (res.ok) {
-      router.push('/admin/dashboard')
-    } else {
-      setError('Mot de passe incorrect')
-      setLoading(false)
-    }
-  }
+function LoginContent() {
+  const searchParams = useSearchParams()
+  const error = searchParams.get('error')
 
   return (
     <div className="min-h-screen flex items-center justify-center px-6" style={{ background: 'var(--bg-base)' }}>
@@ -36,34 +31,50 @@ export default function AdminLogin() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1 className="font-mono text-pink text-xl font-bold mb-6 text-center">~/admin</h1>
+        <h1 className="font-mono text-pink text-xl font-bold mb-2 text-center">~/admin</h1>
+        <p className="font-mono text-xs text-muted text-center mb-6">
+          Connexion via SuperOAuth
+        </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Mot de passe"
-            className="w-full bg-surface border border-border rounded-btn px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:border-pink transition-colors font-mono text-sm"
-            required
-          />
+        {error && (
+          <div className="mb-4 p-3 rounded-btn border border-danger/30 bg-danger/5">
+            <p className="text-danger font-mono text-xs text-center">
+              {ERROR_MESSAGES[error] ?? 'Erreur inconnue.'}
+            </p>
+          </div>
+        )}
 
-          {error && (
-            <p className="text-danger font-mono text-xs text-center">{error}</p>
-          )}
+        <div className="flex flex-col gap-3">
+          {PROVIDERS.map((provider) => (
+            <motion.a
+              key={provider.id}
+              href={`/api/auth/pkce/start?provider=${provider.id}`}
+              className="w-full py-3 rounded-btn font-semibold text-sm text-white text-center transition-opacity hover:opacity-90"
+              style={{ background: provider.color }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Se connecter avec {provider.label}
+            </motion.a>
+          ))}
+        </div>
 
-          <motion.button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-btn font-semibold text-base disabled:opacity-60"
-            style={{ background: 'linear-gradient(135deg, var(--pink), var(--purple))' }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {loading ? 'Connexion...' : 'Se connecter'}
-          </motion.button>
-        </form>
+        <p className="font-mono text-xs text-muted text-center mt-6">
+          Accès réservé au propriétaire du portfolio.
+        </p>
       </motion.div>
     </div>
+  )
+}
+
+export default function AdminLogin() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-base)' }}>
+        <p className="font-mono text-muted text-sm">Chargement...</p>
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   )
 }

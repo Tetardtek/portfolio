@@ -3,6 +3,8 @@ export interface ProjectDescription {
   en: string
 }
 
+export type ProjectCategory = 'ecosystem' | 'tool' | 'formation'
+
 export interface Project {
   id: string
   title: string
@@ -13,6 +15,7 @@ export interface Project {
   github: string
   featured?: boolean
   spotlight?: boolean
+  category?: ProjectCategory
 }
 
 export interface Technology {

@@ -6,7 +6,7 @@ import { StackSchema } from '@/lib/schemas'
 export async function GET() {
   const denied = await guard()
   if (denied) return denied
-  return NextResponse.json(getStack())
+  return NextResponse.json(await getStack())
 }
 
 export async function PUT(req: NextRequest) {
@@ -19,6 +19,6 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: 'Données invalides', details: result.error.flatten() }, { status: 400 })
   }
 
-  saveStack(result.data)
+  await saveStack(result.data)
   return NextResponse.json({ ok: true })
 }

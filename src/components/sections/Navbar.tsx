@@ -10,6 +10,7 @@ interface Props {
   lang: Lang
   onLangChange: (l: Lang) => void
   nav: {
+    brain: string
     projects: string
     stack: string
     infra: string
@@ -17,7 +18,7 @@ interface Props {
   }
 }
 
-const SECTIONS = ['projects', 'stack', 'infra', 'contact']
+const SECTIONS = ['brain', 'projects', 'stack', 'infra', 'contact']
 
 export function Navbar({ lang, onLangChange, nav }: Props) {
   const { scrollY, scrollYProgress } = useScroll()
@@ -79,6 +80,7 @@ export function Navbar({ lang, onLangChange, nav }: Props) {
   }, [menuOpen])
 
   const links = [
+    { label: nav.brain,    href: '#brain',    id: 'brain'    },
     { label: nav.projects, href: '#projects', id: 'projects' },
     { label: nav.stack,    href: '#stack',    id: 'stack'    },
     { label: nav.infra,    href: '#infra',    id: 'infra'    },

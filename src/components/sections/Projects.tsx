@@ -16,6 +16,10 @@ interface Props {
     demo: string
     code: string
     filter_all: string
+    ecosystem_label: string
+    formation_label: string
+    formation_toggle: string
+    formation_hide: string
   }
 }
 
@@ -68,14 +72,16 @@ function FeaturedCard({ project, t, lang, stack, large }: { project: Project; t:
           >
             {t.demo}
           </a>
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 text-center py-2 rounded-btn border border-border text-muted hover:border-purple hover:text-purple text-sm transition-colors"
-          >
-            {t.code}
-          </a>
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 text-center py-2 rounded-btn border border-border text-muted hover:border-purple hover:text-purple text-sm transition-colors"
+            >
+              {t.code}
+            </a>
+          )}
           <motion.button
             onClick={handleCopy}
             className="px-3 py-2 rounded-btn border border-border text-muted hover:border-cyan hover:text-cyan text-sm transition-colors shrink-0"
@@ -137,12 +143,14 @@ function CompactCard({ project, t, lang, stack, delay }: { project: Project; t: 
           >
             {t.demo}
           </a>
-          <a href={project.github} target="_blank" rel="noopener noreferrer"
-            className="px-3 py-1 rounded-btn border border-border text-xs font-mono text-muted hover:border-purple hover:text-purple transition-colors"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {t.code}
-          </a>
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noopener noreferrer"
+              className="px-3 py-1 rounded-btn border border-border text-xs font-mono text-muted hover:border-purple hover:text-purple transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {t.code}
+            </a>
+          )}
           <motion.span
             className="font-mono text-muted text-xs ml-1"
             animate={{ rotate: open ? 180 : 0 }}
@@ -174,24 +182,27 @@ function CompactCard({ project, t, lang, stack, delay }: { project: Project; t: 
   )
 }
 
-const PAGE_SIZE = 6
-
 export function Projects({ projects, lang, stack, t }: Props) {
+  const ecosystemProjects = projects.filter((p) => p.category === 'ecosystem')
+  const toolProjects = projects.filter((p) => p.category === 'tool')
+  const formationProjects = projects.filter((p) => p.category === 'formation')
+
+  const mainProjects = [...ecosystemProjects, ...toolProjects]
+
   const stackNames = new Set(stack.map((s) => s.name))
-  const allTechnos = Array.from(new Set(projects.flatMap((p) => p.techno).filter((n) => stackNames.has(n)))).sort()
-  const techCounts = projects.reduce<Record<string, number>>(
+  const allTechnos = Array.from(new Set(mainProjects.flatMap((p) => p.techno).filter((n) => stackNames.has(n)))).sort()
+  const techCounts = mainProjects.reduce<Record<string, number>>(
     (acc, p) => { p.techno.forEach((n) => { acc[n] = (acc[n] ?? 0) + 1 }); return acc },
     {}
   )
   const [filter, setFilter] = useState<string | null>(null)
-  const [showAll, setShowAll] = useState(false)
+  const [showFormation, setShowFormation] = useState(false)
 
-  const filtered = filter ? projects.filter((p) => p.techno.includes(filter)) : projects
+  const filtered = filter ? mainProjects.filter((p) => p.techno.includes(filter)) : mainProjects
   const featured = filtered
     .filter((p) => p.featured)
     .sort((a, b) => (b.spotlight ? 1 : 0) - (a.spotlight ? 1 : 0))
   const compact = filtered.filter((p) => !p.featured)
-  const visibleCompact = showAll ? compact : compact.slice(0, PAGE_SIZE)
 
   return (
     <section id="projects" className="py-24 px-6 max-w-6xl mx-auto">
@@ -204,7 +215,7 @@ export function Projects({ projects, lang, stack, t }: Props) {
       {/* Filters */}
       <div className="flex flex-wrap justify-center gap-2 mb-10">
         <button
-          onClick={() => { setFilter(null); setShowAll(false) }}
+          onClick={() => setFilter(null)}
           className={`px-4 py-1.5 rounded-full font-mono text-sm border transition-colors ${filter === null ? 'border-pink text-pink bg-surface' : 'border-border text-muted hover:border-purple hover:text-purple'}`}
         >
           {t.filter_all}
@@ -215,7 +226,7 @@ export function Projects({ projects, lang, stack, t }: Props) {
           return (
             <button
               key={name}
-              onClick={() => { setFilter(name); setShowAll(false) }}
+              onClick={() => setFilter(name)}
               className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full font-mono text-sm border transition-colors ${isActive ? 'border-pink text-pink bg-surface' : 'border-border text-muted hover:border-purple hover:text-purple'}`}
             >
               {tech?.img && (
@@ -228,6 +239,17 @@ export function Projects({ projects, lang, stack, t }: Props) {
           )
         })}
       </div>
+
+      {/* Ecosystem label */}
+      {featured.length > 0 && (
+        <div className="flex items-center gap-3 mb-6">
+          <span className="font-mono text-xs text-cyan uppercase tracking-wider">{t.ecosystem_label}</span>
+          <div className="flex-1 h-px bg-border" />
+          <span className="font-mono text-xs text-muted">
+            {lang === 'fr' ? 'Chaque projet = un tenant SuperOAuth' : 'Every project = a SuperOAuth tenant'}
+          </span>
+        </div>
+      )}
 
       {/* Bento grid — projets featured */}
       {featured.length > 0 && (
@@ -243,27 +265,57 @@ export function Projects({ projects, lang, stack, t }: Props) {
         </div>
       )}
 
-      {/* Liste compacte — projets non featured */}
+      {/* Compact — tool projects */}
       {compact.length > 0 && (
-        <div className="flex flex-col gap-3">
-          {featured.length > 0 && (
-            <div className="flex items-center gap-3 mb-2">
-              <span className="font-mono text-xs text-muted uppercase tracking-wider">Autres projets</span>
-              <div className="flex-1 h-px bg-border" />
-            </div>
-          )}
-          {visibleCompact.map((project, i) => (
+        <div className="flex flex-col gap-3 mb-8">
+          {compact.map((project, i) => (
             <CompactCard key={project.id} project={project} t={t} lang={lang} stack={stack} delay={i * 0.06} />
           ))}
+        </div>
+      )}
 
-          {compact.length > PAGE_SIZE && (
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="self-center mt-2 px-6 py-2 font-mono text-sm border border-border text-muted rounded-btn hover:border-pink hover:text-pink transition-colors"
+      {/* Formation projects — collapsible */}
+      {formationProjects.length > 0 && (
+        <div className="mt-12">
+          <button
+            onClick={() => setShowFormation(!showFormation)}
+            className="flex items-center gap-3 w-full group"
+          >
+            <div className="flex-1 h-px bg-border group-hover:bg-purple transition-colors" />
+            <span className="font-mono text-xs text-muted group-hover:text-purple uppercase tracking-wider transition-colors">
+              {showFormation ? t.formation_hide : t.formation_toggle}
+            </span>
+            <motion.span
+              className="font-mono text-muted text-xs"
+              animate={{ rotate: showFormation ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
             >
-              {showAll ? 'Voir moins' : `Voir plus (${compact.length - PAGE_SIZE} restants)`}
-            </button>
-          )}
+              ▾
+            </motion.span>
+            <div className="flex-1 h-px bg-border group-hover:bg-purple transition-colors" />
+          </button>
+
+          <AnimatePresence initial={false}>
+            {showFormation && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+                className="overflow-hidden"
+              >
+                <div className="flex flex-col gap-3 mt-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="font-mono text-xs text-muted uppercase tracking-wider">{t.formation_label}</span>
+                    <div className="flex-1 h-px bg-border" />
+                  </div>
+                  {formationProjects.map((project, i) => (
+                    <CompactCard key={project.id} project={project} t={t} lang={lang} stack={stack} delay={i * 0.06} />
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
     </section>

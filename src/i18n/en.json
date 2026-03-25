@@ -6,17 +6,35 @@
     "cta_contact": "Contact me"
   },
   "nav": {
+    "brain": "Brain",
     "projects": "Projects",
     "stack": "Stack",
     "infra": "Infrastructure",
     "contact": "Contact"
+  },
+  "brain": {
+    "subtitle": "My super project",
+    "title": "The Brain",
+    "description": "A personal cognitive system for Claude Code — specialized agents, versioned persistence, open-core distribution.",
+    "stats": {
+      "agents": "agents",
+      "sessions": "tracked sessions",
+      "zones": "protected zones",
+      "distribution": "environments"
+    },
+    "cta": "Learn more",
+    "cta_github": "GitHub Template"
   },
   "projects": {
     "title": "Projects",
     "subtitle": "What I've built",
     "demo": "Demo",
     "code": "Code",
-    "filter_all": "All"
+    "filter_all": "All",
+    "ecosystem_label": "Ecosystem",
+    "formation_label": "Training projects",
+    "formation_toggle": "See my training projects",
+    "formation_hide": "Hide"
   },
   "stack": {
     "title": "Stack",
@@ -50,6 +68,7 @@
     "rights": "All rights reserved",
     "download_cv": "Download CV",
     "nav": {
+      "brain": "Brain",
       "projects": "Projects",
       "stack": "Stack",
       "infra": "Infrastructure",

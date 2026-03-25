@@ -3,10 +3,10 @@ import HomeClient from './HomeClient'
 
 export const dynamic = 'force-dynamic'
 
-export default function Home() {
-  const projects = getProjects()
-  const stack = getStack()
-  const infra = getInfrastructure()
+export default async function Home() {
+  const projects = await getProjects()
+  const stack = await getStack()
+  const infra = await getInfrastructure()
 
   const techCounts = projects.reduce<Record<string, number>>(
     (acc, p) => { p.techno.forEach((name) => { acc[name] = (acc[name] ?? 0) + 1 }); return acc },

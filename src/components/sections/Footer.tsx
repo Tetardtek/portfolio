@@ -9,7 +9,7 @@ interface Props {
     made_with: string
     rights: string
     download_cv: string
-    nav: { projects: string; stack: string; infra: string; contact: string }
+    nav: { brain: string; projects: string; stack: string; infra: string; contact: string }
   }
 }
 
@@ -57,6 +57,7 @@ export function Footer({ t }: Props) {
           {/* Center — nav */}
           <nav className="flex gap-6">
             {[
+              { label: t.nav.brain,    href: '#brain'    },
               { label: t.nav.projects, href: '#projects' },
               { label: t.nav.stack,    href: '#stack'    },
               { label: t.nav.infra,    href: '#infra'    },

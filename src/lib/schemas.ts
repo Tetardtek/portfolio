@@ -15,6 +15,7 @@ export const ProjectSchema = z.object({
   github: z.string(),
   featured: z.boolean().optional(),
   spotlight: z.boolean().optional(),
+  category: z.enum(['ecosystem', 'tool', 'formation']).optional(),
 })
 
 export const ProjectsSchema = z.array(ProjectSchema)

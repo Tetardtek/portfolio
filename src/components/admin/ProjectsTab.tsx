@@ -51,6 +51,7 @@ export function ProjectsTab({ projects, stack, selectedIdx, descLang, setProject
       github: '',
       featured: false,
       spotlight: false,
+      category: 'ecosystem',
     }])
     setSelectedIdx(newIdx)
   }
