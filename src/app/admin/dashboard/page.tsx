@@ -22,11 +22,13 @@ export default function AdminDashboard() {
   const [selectedTechIdx, setSelectedTechIdx] = useState<number | null>(null)
   const [selectedServiceIdx, setSelectedServiceIdx] = useState<number | null>(null)
   const [descLang, setDescLang] = useState<DescLang>('fr')
+  const [user, setUser] = useState<{ nickname: string; email: string } | null>(null)
 
   useEffect(() => {
     fetch('/api/admin/projects').then((r) => r.json()).then(setProjects)
     fetch('/api/admin/stack').then((r) => r.json()).then(setStack)
     fetch('/api/admin/infra').then((r) => r.json()).then(setInfra)
+    fetch('/api/admin/me').then((r) => r.ok ? r.json() : null).then(setUser)
   }, [])
 
   async function logout() {
@@ -58,8 +60,23 @@ export default function AdminDashboard() {
     <div className="min-h-screen px-6 py-8 max-w-6xl mx-auto" style={{ background: 'var(--bg-base)' }}>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-mono text-pink text-xl font-bold">~/admin/dashboard</h1>
+        <div className="flex items-center gap-4">
+          <h1 className="font-mono text-pink text-xl font-bold">~/admin/dashboard</h1>
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-1.5 font-mono text-xs border border-border text-muted rounded-btn hover:border-cyan hover:text-cyan transition-colors"
+          >
+            Voir le site ↗
+          </a>
+        </div>
         <div className="flex items-center gap-3">
+          {user && (
+            <span className="font-mono text-xs text-muted">
+              {user.nickname}
+            </span>
+          )}
           {saved && (
             <motion.span className="font-mono text-xs text-success" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               ✓ Sauvegardé

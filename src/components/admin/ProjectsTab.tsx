@@ -168,8 +168,20 @@ export function ProjectsTab({ projects, stack, selectedIdx, descLang, setProject
               <textarea className={`${input} resize-none`} rows={3} value={selected.description[descLang]} onChange={(e) => updateDesc(selectedIdx, descLang, e.target.value)} />
             </div>
 
-            {/* Toggles */}
-            <div className="flex gap-6">
+            {/* Category + Toggles */}
+            <div className="flex gap-6 items-center flex-wrap">
+              <div className="flex items-center gap-2">
+                <label className="font-mono text-xs text-muted">Catégorie</label>
+                <select
+                  value={selected.category ?? 'ecosystem'}
+                  onChange={(e) => updateProject(selectedIdx, 'category', e.target.value)}
+                  className="bg-base border border-border rounded-btn px-2 py-1 text-text text-xs font-mono focus:outline-none focus:border-pink transition-colors"
+                >
+                  <option value="ecosystem">Écosystème</option>
+                  <option value="tool">Outil</option>
+                  <option value="formation">Formation</option>
+                </select>
+              </div>
               <label className="flex items-center gap-2 font-mono text-xs text-muted cursor-pointer">
                 <input type="checkbox" checked={selected.featured ?? false} onChange={(e) => updateProject(selectedIdx, 'featured', e.target.checked)} className="accent-pink" />
                 Mis en avant (bento)
