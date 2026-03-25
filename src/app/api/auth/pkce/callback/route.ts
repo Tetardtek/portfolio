@@ -31,13 +31,11 @@ export async function GET(req: NextRequest) {
   // Exchange code for tokens
   const tokens = await exchangeCode(code, verifier)
   if (!tokens) {
-    console.error('[PKCE] Token exchange failed')
     return NextResponse.redirect(new URL('/admin?error=token_exchange_failed', base))
   }
 
   // Verify user is the owner
   const user = await getUserProfile(tokens.access_token)
-  console.log('[PKCE] User:', user?.id, '| Owner IDs:', process.env.OWNER_USER_ID, '| Match:', user ? isOwner(user.id) : 'no user')
   if (!user || !isOwner(user.id)) {
     return NextResponse.redirect(new URL('/admin?error=unauthorized', base))
   }
