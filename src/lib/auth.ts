@@ -14,7 +14,7 @@ export function getPublicUrl(req: NextRequest): string {
 
 const SUPEROAUTH_URL = process.env.SUPEROAUTH_URL ?? 'https://superoauth.tetardtek.com'
 const CLIENT_ID = process.env.SUPEROAUTH_CLIENT_ID ?? ''
-const OWNER_USER_ID = process.env.OWNER_USER_ID ?? ''
+const OWNER_USER_IDS = (process.env.OWNER_USER_ID ?? '').split(',').map(s => s.trim()).filter(Boolean)
 const REDIRECT_URI = process.env.SUPEROAUTH_REDIRECT_URI ?? ''
 const COOKIE_NAME = 'admin_token'
 const COOKIE_MAX_AGE = 60 * 60 * 8 // 8 hours
@@ -89,7 +89,7 @@ export async function getAdminSession(): Promise<{ userId: string } | null> {
   if (!user) return null
 
   // Owner check
-  if (user.id !== OWNER_USER_ID) return null
+  if (!OWNER_USER_IDS.includes(user.id)) return null
 
   return { userId: user.id }
 }
@@ -101,5 +101,5 @@ export async function guard(): Promise<NextResponse | null> {
 }
 
 export function isOwner(userId: string): boolean {
-  return userId === OWNER_USER_ID
+  return OWNER_USER_IDS.includes(userId)
 }
