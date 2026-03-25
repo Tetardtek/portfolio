@@ -1,6 +1,16 @@
 import { cookies } from 'next/headers'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
+
+const PUBLIC_URL = process.env.PUBLIC_URL ?? 'https://portfolio.tetardtek.com'
+
+/** Resolve the public base URL — uses X-Forwarded-Host if behind a proxy, else env */
+export function getPublicUrl(req: NextRequest): string {
+  const forwarded = req.headers.get('x-forwarded-host')
+  const proto = req.headers.get('x-forwarded-proto') ?? 'https'
+  if (forwarded) return `${proto}://${forwarded}`
+  return PUBLIC_URL
+}
 
 const SUPEROAUTH_URL = process.env.SUPEROAUTH_URL ?? 'https://superoauth.tetardtek.com'
 const CLIENT_ID = process.env.SUPEROAUTH_CLIENT_ID ?? ''
