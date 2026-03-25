@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { Navbar } from '@/components/sections/Navbar'
 import { Footer } from '@/components/sections/Footer'
 import { BackToTop } from '@/components/ui/BackToTop'
@@ -121,12 +122,12 @@ export default function BrainPage() {
               >
                 {t.brain.cta_github}
               </a>
-              <a
+              <Link
                 href="/#brain"
                 className="px-6 py-3 rounded-card font-semibold border border-border text-muted text-sm hover:border-pink hover:text-pink transition-colors"
               >
                 ← {lang === 'fr' ? 'Retour au portfolio' : 'Back to portfolio'}
-              </a>
+              </Link>
             </div>
           </motion.div>
         </section>
