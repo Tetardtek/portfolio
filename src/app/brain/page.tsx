@@ -49,7 +49,7 @@ const FEATURES = [
     title: { fr: 'Distribution open-core', en: 'Open-core distribution' },
     desc: {
       fr: 'Template distribué sous BSL 1.1 — kernel ouvert, distillation privée. Pipeline E2E validé sur 4 environnements.',
-      en: 'Template distributed under BSL 1.1 — open kernel, private distillation. E2E pipeline validated on 4 environments.'
+      en: 'Template distributed under BSL 1.1 — open kernel, private distillation. E2E pipeline validated on 5 environments.'
     },
   },
   {
@@ -96,12 +96,28 @@ export default function BrainPage() {
             <p className="mt-6 text-muted text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
               {t.brain.description}
             </p>
-            <div className="flex justify-center gap-4 mt-8">
+            <div className="flex flex-wrap justify-center gap-3 mt-8">
               <a
-                href="https://github.com/tetardtek-cortex/brain-template"
+                href="https://brain.tetardtek.com/ui/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 rounded-card font-semibold text-white text-sm transition-opacity hover:opacity-90 bg-gradient-vc"
+              >
+                {t.brain.cta_demo}
+              </a>
+              <a
+                href="https://brain.tetardtek.com/ui/docs.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-card font-semibold border border-border text-muted text-sm hover:border-purple hover:text-purple transition-colors"
+              >
+                {t.brain.cta_docs}
+              </a>
+              <a
+                href="https://github.com/Tetardtek/Cortex-Template"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-card font-semibold border border-border text-muted text-sm hover:border-cyan hover:text-cyan transition-colors"
               >
                 {t.brain.cta_github}
               </a>

@@ -10,6 +10,7 @@ export function getPool(): mysql.Pool {
       user: process.env.DB_USER ?? 'portfolio',
       password: process.env.DB_PASSWORD ?? '',
       database: process.env.DB_NAME ?? 'portfolio_v2',
+      charset: 'utf8mb4',
       waitForConnections: true,
       connectionLimit: 5,
       idleTimeout: 60000,

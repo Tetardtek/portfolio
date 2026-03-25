@@ -23,6 +23,8 @@
       "distribution": "environments"
     },
     "cta": "Learn more",
+    "cta_demo": "Live demo",
+    "cta_docs": "Documentation",
     "cta_github": "GitHub Template"
   },
   "projects": {

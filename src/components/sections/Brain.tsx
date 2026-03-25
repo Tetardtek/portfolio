@@ -15,6 +15,8 @@ interface Props {
     }
     cta: string
     cta_github: string
+    cta_demo: string
+    cta_docs: string
   }
 }
 
@@ -22,7 +24,7 @@ const STATS = [
   { value: '81+', key: 'agents' as const },
   { value: '200+', key: 'sessions' as const },
   { value: '5', key: 'zones' as const },
-  { value: '4', key: 'distribution' as const },
+  { value: '5', key: 'distribution' as const },
 ]
 
 export function Brain({ t }: Props) {
@@ -82,7 +84,23 @@ export function Brain({ t }: Props) {
               {t.cta}
             </a>
             <a
-              href="https://github.com/tetardtek-cortex/brain-template"
+              href="https://brain.tetardtek.com/ui/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-card font-semibold border border-border text-muted text-sm hover:border-pink hover:text-pink transition-colors"
+            >
+              {t.cta_demo}
+            </a>
+            <a
+              href="https://brain.tetardtek.com/ui/docs.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-card font-semibold border border-border text-muted text-sm hover:border-purple hover:text-purple transition-colors"
+            >
+              {t.cta_docs}
+            </a>
+            <a
+              href="https://github.com/Tetardtek/Cortex-Template"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-card font-semibold border border-border text-muted text-sm hover:border-cyan hover:text-cyan transition-colors"
