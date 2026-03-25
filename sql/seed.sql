@@ -35,7 +35,7 @@ INSERT INTO projects (id, title, description_fr, description_en, img, link, gith
 ('origins-digital', 'Origin''s Digital',
  'Plateforme vidéo générique — socle technique pour HowToBrain. Intégration SuperOAuth PKCE avec 4 providers (Discord, GitHub, Google, Twitch). CI/CD Gitea automatisé.',
  'Generic video platform — technical foundation for HowToBrain. SuperOAuth PKCE integration with 4 providers (Discord, GitHub, Google, Twitch). Automated Gitea CI/CD.',
- '/assets/img/origins.png', 'https://originsdigital.tetardtek.com/', 'https://github.com/Tetardtek/P3-Originsdigital',
+ '/assets/img/origins.png', 'https://origins.tetardtek.com', 'https://github.com/Tetardtek/P3-Originsdigital',
  TRUE, FALSE, 'ecosystem', 5),
 
 ('portfolio-v2', 'Portfolio v2',
