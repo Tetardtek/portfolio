@@ -1,7 +1,8 @@
 {
   "hero": {
     "role": "Développeur full-stack & infra · self-hosted",
-    "tagline": "Code, DevOps, Linux, IA généraliste — tout est en prod.\nFreelance disponible.",
+    "tagline": "Code, DevOps, Linux, IA en production — tout est en prod.\nFreelance disponible.",
+    "bio": "Ancien chauffeur poids lourd, reconverti développeur après une formation et beaucoup de café. J'ai tout appris en construisant — le Brain est né sur un siège passager entre deux livraisons.",
     "cta_projects": "Voir mes projets",
     "cta_contact": "Me contacter"
   },
@@ -50,6 +51,7 @@
   "contact": {
     "title": "Contact",
     "subtitle": "On se parle ?",
+    "intro": "Un projet, une question, un café virtuel — je réponds en personne.",
     "name": "Nom",
     "email": "Email",
     "message": "Message",

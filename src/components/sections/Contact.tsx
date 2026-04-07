@@ -7,6 +7,7 @@ interface Props {
   t: {
     title: string
     subtitle: string
+    intro: string
     name: string
     email: string
     message: string
@@ -53,6 +54,7 @@ export function Contact({ t }: Props) {
       >
         <span className="font-mono text-xs text-cyan tracking-widest uppercase">{t.subtitle}</span>
         <h2 className="mt-2 text-4xl font-bold text-text">{t.title}</h2>
+        <p className="mt-4 text-muted text-sm">{t.intro}</p>
       </motion.div>
 
       <motion.form

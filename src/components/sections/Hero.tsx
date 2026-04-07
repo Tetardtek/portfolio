@@ -6,6 +6,7 @@ interface Props {
   t: {
     role: string
     tagline: string
+    bio: string
     cta_projects: string
     cta_contact: string
   }
@@ -89,6 +90,16 @@ export function Hero({ t }: Props) {
           transition={{ delay: 0.65 }}
         >
           {highlightTagline(t.tagline)}
+        </motion.p>
+
+        {/* Bio */}
+        <motion.p
+          className="text-sm md:text-base text-muted leading-relaxed max-w-lg italic"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.75 }}
+        >
+          {t.bio}
         </motion.p>
 
         {/* CTAs */}

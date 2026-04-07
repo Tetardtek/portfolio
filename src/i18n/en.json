@@ -1,7 +1,8 @@
 {
   "hero": {
     "role": "Full-stack developer & infra · self-hosted",
-    "tagline": "Code, DevOps, Linux, generalist AI — everything in production.\nFreelance available.",
+    "tagline": "Code, DevOps, Linux, AI in production — everything in production.\nFreelance available.",
+    "bio": "Former truck driver, turned developer after a bootcamp and a lot of coffee. I learned everything by building — the Brain was born on a passenger seat between deliveries.",
     "cta_projects": "See my projects",
     "cta_contact": "Contact me"
   },
@@ -50,6 +51,7 @@
   "contact": {
     "title": "Contact",
     "subtitle": "Let's talk?",
+    "intro": "A project, a question, a virtual coffee — I reply personally.",
     "name": "Name",
     "email": "Email",
     "message": "Message",
