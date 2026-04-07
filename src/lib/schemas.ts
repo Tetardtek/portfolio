@@ -41,6 +41,21 @@ export const InfrastructureSchema = z.object({
   services: z.array(InfraServiceSchema),
 })
 
+export const BrainFeatureSchema = z.object({
+  icon: z.string().min(1),
+  title: BilingualSchema,
+  desc: BilingualSchema,
+})
+
+export const BrainFeaturesSchema = z.array(BrainFeatureSchema)
+
+export const BrainMilestoneSchema = z.object({
+  date: z.string().min(1),
+  label: BilingualSchema,
+})
+
+export const BrainMilestonesSchema = z.array(BrainMilestoneSchema)
+
 export const ContactSchema = z.object({
   name: z.string().min(1).max(100),
   email: z.string().email(),

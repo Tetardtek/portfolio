@@ -1,5 +1,5 @@
 import { getPool } from './db'
-import type { Project, Technology, Infrastructure, ProjectCategory } from '@/types'
+import type { Project, Technology, Infrastructure, ProjectCategory, BrainFeature, BrainMilestone } from '@/types'
 import type { RowDataPacket } from 'mysql2'
 
 // ─── Projects ───────────────────────────────────────────────
@@ -178,6 +178,91 @@ export async function saveInfrastructure(infra: Infrastructure): Promise<void> {
       )
     }
 
+    await conn.commit()
+  } catch (e) {
+    await conn.rollback()
+    throw e
+  } finally {
+    conn.release()
+  }
+}
+
+// ─── Brain Features ────────────────────────────────────────
+
+interface BrainFeatureRow extends RowDataPacket {
+  icon: string
+  title_fr: string
+  title_en: string
+  desc_fr: string
+  desc_en: string
+}
+
+export async function getBrainFeatures(): Promise<BrainFeature[]> {
+  const pool = getPool()
+  const [rows] = await pool.query<BrainFeatureRow[]>(
+    'SELECT * FROM brain_features ORDER BY sort_order ASC'
+  )
+  return rows.map((r) => ({
+    icon: r.icon,
+    title: { fr: r.title_fr, en: r.title_en },
+    desc: { fr: r.desc_fr, en: r.desc_en },
+  }))
+}
+
+export async function saveBrainFeatures(features: BrainFeature[]): Promise<void> {
+  const pool = getPool()
+  const conn = await pool.getConnection()
+  try {
+    await conn.beginTransaction()
+    await conn.query('DELETE FROM brain_features')
+    for (let i = 0; i < features.length; i++) {
+      const f = features[i]
+      await conn.query(
+        'INSERT INTO brain_features (icon, title_fr, title_en, desc_fr, desc_en, sort_order) VALUES (?, ?, ?, ?, ?, ?)',
+        [f.icon, f.title.fr, f.title.en, f.desc.fr, f.desc.en, i]
+      )
+    }
+    await conn.commit()
+  } catch (e) {
+    await conn.rollback()
+    throw e
+  } finally {
+    conn.release()
+  }
+}
+
+// ─── Brain Milestones ──────────────────────────────────────
+
+interface BrainMilestoneRow extends RowDataPacket {
+  date: string
+  label_fr: string
+  label_en: string
+}
+
+export async function getBrainMilestones(): Promise<BrainMilestone[]> {
+  const pool = getPool()
+  const [rows] = await pool.query<BrainMilestoneRow[]>(
+    'SELECT * FROM brain_milestones ORDER BY sort_order ASC'
+  )
+  return rows.map((r) => ({
+    date: r.date,
+    label: { fr: r.label_fr, en: r.label_en },
+  }))
+}
+
+export async function saveBrainMilestones(milestones: BrainMilestone[]): Promise<void> {
+  const pool = getPool()
+  const conn = await pool.getConnection()
+  try {
+    await conn.beginTransaction()
+    await conn.query('DELETE FROM brain_milestones')
+    for (let i = 0; i < milestones.length; i++) {
+      const m = milestones[i]
+      await conn.query(
+        'INSERT INTO brain_milestones (date, label_fr, label_en, sort_order) VALUES (?, ?, ?, ?)',
+        [m.date, m.label.fr, m.label.en, i]
+      )
+    }
     await conn.commit()
   } catch (e) {
     await conn.rollback()

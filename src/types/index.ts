@@ -37,5 +37,16 @@ export interface Infrastructure {
   services: InfraService[]
 }
 
+export interface BrainFeature {
+  icon: string
+  title: { fr: string; en: string }
+  desc: { fr: string; en: string }
+}
+
+export interface BrainMilestone {
+  date: string
+  label: { fr: string; en: string }
+}
+
 export type Theme = 'dark' | 'light'
 export type Lang = 'fr' | 'en'
