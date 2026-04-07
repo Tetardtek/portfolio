@@ -36,8 +36,8 @@ yarn-error.log*
 # CV (données personnelles, copier manuellement sur le VPS)
 public/assets/cv/*.pdf
 
-# données de production (modifiées via l'admin, persistées via volume Docker)
-src/data/*.json
+# données legacy (migrées vers MySQL)
+src/data/
 
 # vercel
 .vercel

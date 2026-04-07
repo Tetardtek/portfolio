@@ -25,9 +25,6 @@ COPY --from=builder --chown=appuser:appgroup /app/.next/standalone ./
 COPY --from=builder --chown=appuser:appgroup /app/.next/static ./.next/static
 COPY --from=builder --chown=appuser:appgroup /app/public ./public
 
-# Données JSON (écrasées en prod par le volume docker-compose)
-COPY --from=builder --chown=appuser:appgroup /app/src/data ./src/data
-
 USER appuser
 
 EXPOSE 3000
