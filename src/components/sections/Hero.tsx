@@ -94,7 +94,7 @@ export function Hero({ t }: Props) {
 
         {/* Bio */}
         <motion.p
-          className="text-sm md:text-base text-muted leading-relaxed max-w-lg italic"
+          className="text-sm md:text-base text-text/70 leading-relaxed max-w-lg italic"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.75 }}
