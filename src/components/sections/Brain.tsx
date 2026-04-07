@@ -7,25 +7,12 @@ interface Props {
     subtitle: string
     title: string
     description: string
-    stats: {
-      agents: string
-      sessions: string
-      zones: string
-      distribution: string
-    }
     cta: string
     cta_github: string
     cta_demo: string
     cta_docs: string
   }
 }
-
-const STATS = [
-  { value: '81+', key: 'agents' as const },
-  { value: '200+', key: 'sessions' as const },
-  { value: '5', key: 'zones' as const },
-  { value: '5', key: 'distribution' as const },
-]
 
 export function Brain({ t }: Props) {
   return (
@@ -55,25 +42,6 @@ export function Brain({ t }: Props) {
           <p className="mt-4 text-muted text-base md:text-lg leading-relaxed max-w-2xl">
             {t.description}
           </p>
-
-          {/* Stats grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
-            {STATS.map((stat, i) => (
-              <motion.div
-                key={stat.key}
-                className="text-center"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 + i * 0.08, duration: 0.4 }}
-              >
-                <div className="text-2xl md:text-3xl font-bold text-gradient">{stat.value}</div>
-                <div className="mt-1 font-mono text-xs text-muted uppercase tracking-wider">
-                  {t.stats[stat.key]}
-                </div>
-              </motion.div>
-            ))}
-          </div>
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-3 mt-8">

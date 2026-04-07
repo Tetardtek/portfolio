@@ -1,7 +1,7 @@
 {
   "hero": {
-    "role": "Développeur web full-stack autodidacte",
-    "tagline": "Passionné par le code, le DevOps et les environnements Linux.\nEn recherche d'opportunité.",
+    "role": "Développeur full-stack & infra · self-hosted",
+    "tagline": "Code, DevOps, Linux, IA généraliste — tout est en prod.\nFreelance disponible.",
     "cta_projects": "Voir mes projets",
     "cta_contact": "Me contacter"
   },
@@ -13,15 +13,9 @@
     "contact": "Contact"
   },
   "brain": {
-    "subtitle": "Mon super projet",
+    "subtitle": "Mon outil de travail",
     "title": "The Brain",
-    "description": "Un système cognitif personnel pour Claude Code — agents spécialisés, persistance versionnée, distribution open-core.",
-    "stats": {
-      "agents": "agents",
-      "sessions": "sessions trackées",
-      "zones": "zones protégées",
-      "distribution": "environnements"
-    },
+    "description": "Un système où mes agents IA se souviennent de chaque session, chaque décision, chaque ligne de code. Self-hosted, versionné, distribuable.",
     "cta": "En savoir plus",
     "cta_demo": "Vitrine",
     "cta_docs": "Documentation",
